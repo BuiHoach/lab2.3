@@ -90,6 +90,9 @@ CREATE TABLE TONKHO (
     FOREIGN KEY (MaVTu) REFERENCES VATTU(MaVTu)    -- Khóa ngoại tham chiếu đến MaVTu trong bảng VATTU
 );
 GO
+select * FROM NHACC
+GO
+
 -- Thêm dữ liệu vào bảng NHACC
 INSERT INTO NHACC (MaNhaCc, TenNhaCc, DiaChi, DienThoai) VALUES
 ('C01', 'Lê Minh Thành', '54, Kim Mã, Cầu Giấy, Hà Nội', '8781024'),
@@ -110,7 +113,8 @@ INSERT INTO VATTU (MaVTu, TenVTu, DvTinh, PhanTram) VALUES
 ('VD01', 'Đầu VCD Sony 1 đĩa', 'BỘ', 30),
 ('VD02', 'Đầu VCD Sony 3 đĩa', 'BỘ', 30);
 GO
-
+select * FROM VATTU
+GO
 -- Thêm dữ liệu vào bảng DONDH
 INSERT INTO DONDH (SoDh, NgayDh, MaNhaCc) VALUES
 ('D001', '2012-01-15', 'C03'),  -- Ngày 15 tháng 01 năm 2012, mã nhà cung cấp C03
@@ -119,4 +123,71 @@ INSERT INTO DONDH (SoDh, NgayDh, MaNhaCc) VALUES
 ('D004', '2012-02-17', 'C02'),  -- Ngày 17 tháng 02 năm 2012, mã nhà cung cấp C02
 ('D005', '2012-03-01', 'C05'),  -- Ngày 01 tháng 03 năm 2012, mã nhà cung cấp C05
 ('D006', '2012-03-12', 'C05');  -- Ngày 12 tháng 03 năm 2012, mã nhà cung cấp C05
+GO
+select * FROM DONDH
+GO
+INSERT INTO PNHAP (SoPn, NgayNhap, SoDh) VALUES
+('N001', '2012-01-17', 'D001'),
+('N002', '2012-01-20', 'D001'),
+('N003', '2012-01-31', 'D002'),
+('N004', '2012-02-15', 'D005'),
+('N005', '2012-03-10', 'D006');
+GO
+select * FROM PNHAP
+GO
+-- Bảng CTDONDH (Chi Tiết Đơn Đặt Hàng)
+INSERT INTO CTDONDH  (SoDh, MaVTu, SoLuong) VALUES
+('N001', 'DD01', 10),
+('N001', 'DD02', 15),
+('N002', 'VD02', 30),
+('N003', 'TV14', 10),
+('N003', 'TV29', 20),
+('N004', 'TV14', 5),
+('N004', 'TV29', 12),
+('N005', 'TV14', 10),
+('N005', 'TV29', 20),
+('N005', 'VD01', 20);
+GO
+select * FROM CTDONDH 
+GO
+--Bảng CTPNHAP (Chi Tiết Phiếu Nhập Hàng)
+INSERT INTO CTPNHAP (SoPn, MaVTu, SINhap, DgNhap) VALUES
+('D001', 'DD01', 10, 2500000),
+('D001', 'DD02', 8, 3500000),
+('D002', 'VD02', 15, 2500000),
+('D003', 'DD01', 2, 2500000),
+('D003', 'TV14', 10, 2500000),
+('D003', 'TV29', 20, 3500000);
+GO
+select * FROM CTPNHAP 
+GO
+--Bảng PXUAT (Phiếu Xuất)
+INSERT INTO PXUAT (SoPx, NgayXuat, TenKh) VALUES
+('X001', '2012-01-17', 'Nguyễn Ngọc Phương Nhi'),
+('X002', '2012-01-25', 'Nguyễn Hồng Phương'),
+('X003', '2012-01-31', 'Nguyễn Tuấn Tú');
+GO
+select * FROM PXUAT 
+GO
+--Bảng CTPXUAT (Chi Tiết Phiếu Xuất Hàng)
+INSERT INTO CTPXUAT (SoPx, MaVTu, SIXuat, DgXuat) VALUES
+('X001', 'DD01', 2, 3500000),
+('X002', 'DD01', 1, 3500000),
+('X002', 'DD02', 5, 4900000),
+('X003', 'DD01', 3, 3500000),
+('X003', 'DD02', 2, 4900000),
+('X003', 'VD02', 10, 3250000);
+GO
+select * FROM CTPXUAT 
+GO
+--Bảng TONKHO (Tồn Kho)
+INSERT INTO TONKHO (NamThang, MaVTu, SLDau, TongSLN, TongSLX,SLCuoi) VALUES
+('201201', 'DD01', 0, 10, 6, 4),
+('201201', 'DD02', 0, 15, 7, 8),
+('201201', 'VD02', 0, 30, 10, 20),
+('201202', 'DD01', 4, 0, 0, 4),
+('201202', 'DD02', 8, 0, 0, 8),
+('201202', 'VD02', 20, 0, 0, 20);
+GO
+select * FROM TONKHO 
 GO
